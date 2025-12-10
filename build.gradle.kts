@@ -2,10 +2,11 @@ plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
     `maven-publish`
+    alias(libs.plugins.gradle.plugin.publish)
 }
 
 group = "org.gamedo.verter"
-version = "0.1.0-SNAPSHOT"
+version = "0.1.0"
 
 repositories {
     mavenLocal()
@@ -25,14 +26,23 @@ dependencies {
 }
 
 gradlePlugin {
+    website.set("https://github.com/pcloves/verter-convention-plugin")
+    vcsUrl.set("https://github.com/pcloves/verter-convention-plugin.git")
+
     plugins {
-        create("kotlinJvmConvention") {
+        register("kotlinJvmConvention") {
             id = "org.gamedo.verter.conventions.kotlin-jvm"
+            displayName = "Verter Kotlin JVM conventions"
+            description = "Kotlin/JVM conventions for org.gamedo.verter projects"
             implementationClass = "org.gamedo.verter.conventions.kotlin.KotlinJvmConventionPlugin"
+            tags.set(listOf("kotlin", "conventions"))
         }
-        create("ktlintConvention") {
+        register("ktlintConvention") {
             id = "org.gamedo.verter.conventions.ktlint"
+            displayName = "Verter ktlint conventions"
+            description = "ktlint conventions for org.gamedo.verter projects"
             implementationClass = "org.gamedo.verter.conventions.ktlint.KtlintConventionPlugin"
+            tags.set(listOf("ktlint", "conventions"))
         }
     }
 }
